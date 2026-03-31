@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EventHorizon | Premium Event Discovery</title>
+  <!-- Google Fonts + premium animations & transitions -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+      background: #fefefe;
+      color: #1a2c3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ===== PREMIUM ANIMATIONS KEYFRAMES ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(43, 122, 98, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 8px rgba(43, 122, 98, 0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* container utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== TOP NAVIGATION with animations ===== */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+      animation: slideInLeft 0.6s ease-out;
+    }
+
+    .navbar:hover {
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 1rem 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      background: linear-gradient(135deg, #1e4b6e, #2b7a62, #40a08b);
+      background-size: 200% auto;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      animation: gradientShift 3s ease infinite;
+      position: relative;
+    }
+
+    .logo::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #1e4b6e, #2b7a62);
+      transition: width 0.4s ease;
+    }
+
+    .logo:hover::after {
+      width: 100%;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e44;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 1rem;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2b7a62, #40a08b);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::before {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #2b7a62;
+      transform: translateY(-2px);
+    }
+
+    /* mobile nav */
+    @media (max-width: 640px) {
+      .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0.9rem 1rem;
+      }
+      .nav-links {
+        gap: 1.8rem;
+      }
+    }
+
+    /* hero section with premium animations */
+    .hero {
+      background: linear-gradient(105deg, #eef5f2 0%, #e0ece8 100%);
+      margin: 2rem 0 1.5rem 0;
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(43, 122, 98, 0.05) 0%, transparent 70%);
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #1e3e48;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      animation: fadeInScale 0.6s ease-out 0.2s both;
+      background: linear-gradient(135deg, #1e3e48, #2b7a62);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #2c5a66;
+      max-width: 580px;
+      margin: 0 auto;
+      animation: slideInRight 0.6s ease-out 0.3s both;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero {
+        padding: 2rem 1rem;
+      }
+    }
+
+    /* search bar section with animation */
+    .search-section {
+      margin: 2rem 0 1.5rem 0;
+      display: flex;
+      justify-content: center;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .search-wrapper {
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      opacity: 0.6;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      border: 2px solid #cfdfd9;
+      border-radius: 60px;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    #searchInput:focus {
+      outline: none;
+      border-color: #2b7a62;
+      box-shadow: 0 0 0 4px rgba(43, 122, 98, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+      transform: scale(1.02);
+    }
+
+    #searchInput:focus + .search-icon {
+      opacity: 1;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    /* featured events heading with animation */
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin: 2rem 0 1.5rem 0;
+      border-left: 5px solid #2b7a62;
+      padding-left: 1rem;
+      color: #1e3e48;
+      animation: slideInLeft 0.6s ease-out 0.5s both;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #2b7a62, #40a08b);
+      transition: width 0.5s ease;
+    }
+
+    .section-title:hover::after {
+      width: 100%;
+    }
+
+    /* event grid with staggered animations */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    /* event card styling with premium hover effects */
+    .event-card {
+      background: white;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eef2f0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+      position: relative;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1e4b6e, #2b7a62, #40a08b);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .event-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .event-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2);
+      border-color: #d0e2db;
+    }
+
+    /* stagger animation for cards */
+    .event-card:nth-child(1) { animation-delay: 0.1s; }
+    .event-card:nth-child(2) { animation-delay: 0.2s; }
+    .event-card:nth-child(3) { animation-delay: 0.3s; }
+    .event-card:nth-child(4) { animation-delay: 0.4s; }
+    .event-card:nth-child(5) { animation-delay: 0.5s; }
+
+    .card-content {
+      padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-name {
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #1f4e5e;
+      line-height: 1.3;
+      transition: color 0.3s ease;
+      position: relative;
+      display: inline-block;
+    }
+
+    .event-card:hover .event-name {
+      color: #2b7a62;
+      transform: translateX(4px);
+      transition: all 0.3s ease;
+    }
+
+    .event-datetime {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #2b7a62;
+      background: #eef6f3;
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      width: fit-content;
+      margin: 0.5rem 0 0.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .event-card:hover .event-datetime {
+      background: #2b7a62;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .event-location {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+      color: #4f6b72;
+      margin: 0.5rem 0 0.4rem 0;
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover .event-location {
+      transform: translateX(4px);
+      color: #2b7a62;
+    }
+
+    .event-desc {
+      font-size: 0.9rem;
+      color: #3a5a64;
+      margin: 0.6rem 0 1rem 0;
+      line-height: 1.45;
+      transition: all 0.3s ease;
+    }
+
+    .register-btn {
+      background: linear-gradient(95deg, #1e4b6e, #2b7a62);
+      background-size: 200% auto;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 0.7rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: auto;
+      align-self: flex-start;
+      width: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .register-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .register-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .register-btn:hover {
+      background-position: right center;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(43, 122, 98, 0.3);
+      animation: pulseGlow 0.6s ease-out;
+    }
+
+    .register-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .no-events {
+      text-align: center;
+      background: linear-gradient(135deg, #f9fbfa, #f0f5f2);
+      padding: 3rem;
+      border-radius: 2rem;
+      color: #5f7c86;
+      font-size: 1.1rem;
+      grid-column: 1 / -1;
+      animation: fadeInScale 0.5s ease-out;
+      transition: all 0.3s ease;
+    }
+
+    footer {
+      text-align: center;
+      margin: 3rem 0 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2ece8;
+      color: #68838b;
+      font-size: 0.85rem;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #2b7a62, transparent);
+      transition: width 0.5s ease;
+    }
+
+    footer:hover::before {
+      width: 200px;
+    }
+
+    /* loading animation */
+    .loading-shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    /* scroll reveal animation for cards */
+    @keyframes scrollReveal {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .event-card {
+      animation: scrollReveal 0.6s ease-out forwards;
+    }
+
+    /* responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 20px;
+      }
+      .section-title {
+        font-size: 1.7rem;
+      }
+      .events-grid {
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-content {
+        padding: 1.2rem;
+      }
+      .register-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #1e4b6e, #2b7a62);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #2b7a62, #40a08b);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#" class="logo">🎯 EventHorizon</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Events</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Discover Events Near You</h1>
+    <p>Connect, explore, and make memories — join the best local experiences.</p>
+  </div>
+
+  <!-- Bonus Search Bar (filters events by name) -->
+  <div class="search-section">
+    <div class="search-wrapper">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search events by name..." autocomplete="off">
+    </div>
+  </div>
+
+  <!-- Featured Events Section -->
+  <div class="section-title">✨ Featured Events</div>
+  <div id="eventsContainer" class="events-grid">
+    <!-- dynamic event cards injected via JS (dummy JSON fetch simulation) -->
+    <div class="no-events loading-shimmer">🎬 Loading amazing events...</div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 EventHorizon — Discover what’s happening around you. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // ----------------------------------------------
+  // DUMMY JSON DATA (simulating fetch from API)
+  // ----------------------------------------------
+  const dummyEvents = [
+    {
+      id: 1,
+      name: "Sunset Jazz & Vinyl Night",
+      date: "April 12, 2025",
+      time: "7:00 PM – 10:30 PM",
+      location: "Blue Note Lounge, Downtown",
+      description: "Smooth live jazz, curated vinyl sets, and craft cocktails. Relax under fairy lights."
+    },
+    {
+      id: 2,
+      name: "Startup Founders Meetup",
+      date: "April 18, 2025",
+      time: "6:00 PM – 9:00 PM",
+      location: "Innovation Hub, SOMA",
+      description: "Network with entrepreneurs, angel investors, and share insights. Light refreshments."
+    },
+    {
+      id: 3,
+      name: "Yoga in the Park: Spring Edition",
+      date: "April 20, 2025",
+      time: "9:30 AM – 11:00 AM",
+      location: "Golden Gate Meadow",
+      description: "Rejuvenate your mind & body with outdoor vinyasa flow. Mats provided, all levels."
+    },
+    {
+      id: 4,
+      name: "Street Food Festival",
+      date: "April 25, 2025",
+      time: "12:00 PM – 8:00 PM",
+      location: "Market Square Plaza",
+      description: "Global flavors, live music, and local artisans. Family-friendly, free entry."
+    },
+    {
+      id: 5,
+      name: "Tech & AI Talk: Future of Creativity",
+      date: "May 02, 2025",
+      time: "5:30 PM – 8:00 PM",
+      location: "The Platform Auditorium",
+      description: "Industry leaders discuss generative AI, ethics, and innovation. Panel + Q&A."
+    }
+  ];
+
+  // Helper: format dateTime nicely (combines date & time)
+  function formatDateTime(event) {
+    return `${event.date} • ${event.time}`;
+  }
+
+  // Render events based on filter text (case-insensitive name search)
+  let currentFilter = "";
+
+  function renderEvents(filterText = "") {
+    const container = document.getElementById("eventsContainer");
+    if (!container) return;
+
+    // filter by name (bonus feature)
+    let filteredEvents = dummyEvents;
+    if (filterText.trim() !== "") {
+      const lowerFilter = filterText.trim().toLowerCase();
+      filteredEvents = dummyEvents.filter(event => 
+        event.name.toLowerCase().includes(lowerFilter)
+      );
+    }
+
+    // if no events match
+    if (filteredEvents.length === 0) {
+      container.innerHTML = `<div class="no-events">🎭 No events match "${escapeHtml(filterText)}". Try another keyword!</div>`;
+      return;
+    }
+
+    // generate HTML for each event card with enhanced animations
+    const cardsHTML = filteredEvents.map((event, index) => {
+      const dateTimeStr = formatDateTime(event);
+      const delay = index * 0.1;
+      return `
+        <div class="event-card" data-event-id="${event.id}" style="animation-delay: ${delay}s">
+          <div class="card-content">
+            <div class="event-name">${escapeHtml(event.name)}</div>
+            <div class="event-datetime">📅 ${escapeHtml(dateTimeStr)}</div>
+            <div class="event-location">📍 ${escapeHtml(event.location)}</div>
+            <div class="event-desc">${escapeHtml(event.description)}</div>
+            <button class="register-btn" data-event="${escapeHtml(event.name)}">🎟️ Register Now</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = cardsHTML;
+
+    // Attach event listeners to all "Register" buttons with enhanced feedback
+    document.querySelectorAll('.register-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const eventName = btn.getAttribute('data-event') || 'this event';
+        // create ripple effect
+        const ripple = document.createElement('span');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.backgroundColor = 'rgba(255,255,255,0.6)';
+        ripple.style.width = '100px';
+        ripple.style.height = '100px';
+        ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+        ripple.style.animation = 'ripple 0.6s ease-out';
+        ripple.style.pointerEvents = 'none';
+        const rect = btn.getBoundingClientRect();
+        ripple.style.left = `${e.clientX - rect.left}px`;
+        ripple.style.top = `${e.clientY - rect.top}px`;
+        btn.style.position = 'relative';
+        btn.style.overflow = 'hidden';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+        
+        // premium alert with animation effect
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '50%';
+        modal.style.left = '50%';
+        modal.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        modal.style.background = 'white';
+        modal.style.padding = '1.5rem 2rem';
+        modal.style.borderRadius = '1rem';
+        modal.style.boxShadow = '0 20px 40px rgba(0,0,0,0.2)';
+        modal.style.zIndex = '1000';
+        modal.style.textAlign = 'center';
+        modal.style.opacity = '0';
+        modal.style.transition = 'all 0.3s ease';
+        modal.innerHTML = `
+          <div style="font-size: 3rem; margin-bottom: 0.5rem;">✨</div>
+          <h3 style="color: #1e4b6e; margin-bottom: 0.5rem;">Registration Demo</h3>
+          <p style="color: #5f7c86;">You registered for<br><strong style="color: #2b7a62;">${escapeHtml(eventName)}</strong></p>
+          <button id="closeModal" style="margin-top: 1rem; padding: 0.5rem 1.5rem; background: linear-gradient(95deg, #1e4b6e, #2b7a62); color: white; border: none; border-radius: 40px; cursor: pointer;">Got it</button>
+        `;
+        document.body.appendChild(modal);
+        setTimeout(() => {
+          modal.style.opacity = '1';
+          modal.style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 10);
+        document.getElementById('closeModal')?.addEventListener('click', () => {
+          modal.style.opacity = '0';
+          modal.style.transform = 'translate(-50%, -50%) scale(0.9)';
+          setTimeout(() => modal.remove(), 300);
+        });
+      });
+    });
+  }
+
+  // Add ripple animation keyframe if not exists
+  if (!document.querySelector('#rippleStyle')) {
+    const style = document.createElement('style');
+    style.id = 'rippleStyle';
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: translate(-50%, -50%) scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // simple XSS prevention
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Simulate fetching dummy JSON data dynamically (bonus)
+  function loadEventData() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(dummyEvents);
+      }, 600); // slightly longer for premium loading effect
+    });
+  }
+
+  // Initialize app: fetch dummy JSON and render with search filter
+  async function init() {
+    const container = document.getElementById("eventsContainer");
+    if (container) container.innerHTML = `<div class="no-events loading-shimmer">🎬 Loading premium events...</div>`;
+    
+    try {
+      const eventsData = await loadEventData();
+      console.log("✅ Events loaded (simulated fetch):", eventsData.length);
+      currentFilter = "";
+      renderEvents(currentFilter);
+    } catch (err) {
+      console.warn("fallback static");
+      renderEvents("");
+    }
+  }
+
+  // set up search input listener with debounce for smoother experience
+  let debounceTimer;
+  function setupSearch() {
+    const searchInput = document.getElementById("searchInput");
+    if (!searchInput) return;
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        currentFilter = e.target.value;
+        renderEvents(currentFilter);
+      }, 200);
+    });
+  }
+
+  // Enhanced nav links with smooth scroll and animations
+  function enhanceNavLinks() {
+    const navHome = document.querySelector('.nav-links a[href="#"]');
+    const navEvents = document.querySelectorAll('.nav-links a')[1];
+    const navContact = document.querySelectorAll('.nav-links a')[2];
+    
+    if (navHome) {
+      navHome.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+    if (navEvents) {
+      navEvents.addEventListener('click', (e) => {
+        e.preventDefault();
+        const eventsSection = document.getElementById('eventsContainer');
+        if (eventsSection) {
+          eventsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+    if (navContact) {
+      navContact.addEventListener('click', (e) => {
+        e.preventDefault();
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s ease';
+        modal.innerHTML = `
+          <div style="background:white;padding:2rem;border-radius:1.5rem;max-width:400px;text-align:center;transform:scale(0.9);animation:scaleIn 0.3s ease forwards">
+            <div style="font-size:3rem">📬</div>
+            <h3 style="color:#1e4b6e;margin:1rem 0">Contact EventHorizon</h3>
+            <p style="color:#5f7c86">hello@eventhorizon.com<br>+1 (555) 202-9595</p>
+            <button id="closeContactBtn" style="margin-top:1rem;padding:0.5rem 2rem;background:linear-gradient(95deg,#1e4b6e,#2b7a62);color:white;border:none;border-radius:40px;cursor:pointer">Close</button>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        const closeBtn = document.getElementById('closeContactBtn');
+        closeBtn?.addEventListener('click', () => modal.remove());
+        modal.addEventListener('click', (e) => { if(e.target === modal) modal.remove(); });
+      });
+    }
+    const logo = document.querySelector('.logo');
+    if(logo) {
+      logo.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  // Add keyframe for modal animations
+  const modalStyle = document.createElement('style');
+  modalStyle.textContent = `
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+  `;
+  document.head.appendChild(modalStyle);
+
+  // run all
+  init().then(() => {
+    setupSearch();
+    enhanceNavLinks();
+  });
+</script>
+</body>
+</html>
